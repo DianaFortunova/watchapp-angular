@@ -1,0 +1,88 @@
+<h2 *ngIf="genre">Filmy a seriály žánru {{genre.name}}</h2>
+<select class="form-select" [(ngModel)]="selectedMoviesAndSeries">
+    <option *ngFor="let mas of moviesandserieses" [ngValue]="mas">
+        {{mas.title}}
+    </option>
+</select>
+<p *ngIf="selectedMoviesAndSeries">
+    Title: {{selectedMoviesAndSeries.title}}
+</p>
+<p *ngIf="selectedMoviesAndSeries">
+    Rating: {{selectedMoviesAndSeries.rating + "%"}}
+</p>
+<p *ngIf="selectedMoviesAndSeries">
+    Number Of Series: {{selectedMoviesAndSeries.numberOfSeasons}}
+</p>
+<p *ngIf="selectedMoviesAndSeries">
+    Number Of Episodes: {{selectedMoviesAndSeries.numberOfEpisodes}}
+</p>
+
+
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    (click)="setNewMoviesAndSeries()">
+    Nový film/seriál
+  </button>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+  (click)="setCurrentMoviesAndSeries()">
+    Editácia filmu/seriálu
+  </button>
+
+  <button type="button" class="btn btn-danger" (click)="deleteMoviesAndSeries()">
+    Vymazanie filmu/seriálu
+  </button>
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editácia filmu/seriálu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="editedMoviesAndSeries">
+            <div class="mb-3 row">
+                <label for="inputTitle" class="col-sm-2 col-form-label">Názov:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputTitle" 
+                  [ngModel]="editedMoviesAndSeries.title"
+                  (ngModelChange)="editedMoviesAndSeries.title = changeTitle($event)">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="inputRating" class="col-sm-2 col-form-label">Rating:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputRating" 
+                  [ngModel]="editedMoviesAndSeries.rating"
+                  (ngModelChange)="editedMoviesAndSeries.rating = changeRating($event)">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="inputNumberOfSeasons" class="col-sm-2 col-form-label">Number Of Seasons:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputNumberOfSeasons" 
+                  [ngModel]="editedMoviesAndSeries.numberOfSeasons"
+                  (ngModelChange)="editedMoviesAndSeries.numberOfSeasons = changeNumberOfSeasons($event)">
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label for="inputNumberOfEpisodes" class="col-sm-2 col-form-label">Number Of Episodes:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputNumberOfEpisodes" 
+                  [ngModel]="editedMoviesAndSeries.numberOfEpisodes"
+                  (ngModelChange)="editedMoviesAndSeries.numberOfEpisodes = changeNumberOfEpisodes($event)">
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušiť</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" 
+          (click)="saveMoviesAndSeries()">Uložiť</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
